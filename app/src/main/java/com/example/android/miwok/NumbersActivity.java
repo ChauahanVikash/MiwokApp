@@ -28,19 +28,19 @@ public class NumbersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
 
-        ArrayList<Word> words = new ArrayList<Word>();
-        words.add(new Word("one", "lutti"));
-        words.add(new Word("two", "otiiko"));
-        words.add(new Word("three", "tolookosu"));
-        words.add(new Word("four", "oyyisa"));
-        words.add(new Word("five", "massokka"));
-        words.add(new Word("six", "temmokka"));
-        words.add(new Word("seven", "kenekaku"));
-        words.add(new Word("eight", "kawinta"));
-        words.add(new Word("nine", "wo’e"));
-        words.add(new Word("ten", "na’aacha"));
+        ArrayList<Word> wordss = new ArrayList<Word>();
+        wordss.add(new Word("one", "lutti"));
+        wordss.add(new Word("two", "otiiko"));
+        wordss.add(new Word("three", "tolookosu"));
+        wordss.add(new Word("four", "oyyisa"));
+        wordss.add(new Word("five", "massokka"));
+        wordss.add(new Word("six", "temmokka"));
+        wordss.add(new Word("seven", "kenekaku"));
+        wordss.add(new Word("eight", "kawinta"));
+        wordss.add(new Word("nine", "wo’e"));
+        wordss.add(new Word("ten", "na’aacha"));
 
-        WordAdapter itemsAdapter = new WordAdapter(this, words);
+        WordAdapter itemsAdapter = new WordAdapter(this, wordss);
 
         ListView listView = (ListView) findViewById(R.id.list);
 
