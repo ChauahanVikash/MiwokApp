@@ -2,6 +2,7 @@ package com.example.android.miwok;
 
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,11 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
     private static final String LOG_TAG = WordAdapter.class.getSimpleName();
 
+    private  int mColorResID ;
 
-    public WordAdapter(Activity context, ArrayList<Word> words) {
+    public WordAdapter(Activity context, ArrayList<Word> words , int R) {
         super(context, 0, words);
+        mColorResID = R ;
     }
 
 
@@ -39,14 +42,20 @@ public class WordAdapter extends ArrayAdapter<Word> {
         TextView miwokTextView = (TextView) listItemView.findViewById(R.id.text_view1);
 
         miwokTextView.setText(currentWord.getmMiwokTranslation());
+        miwokTextView.setBackgroundColor(mColorResID);
 
         TextView engTextView = (TextView) listItemView.findViewById(R.id.text_view2);
 
         engTextView.setText(currentWord.getmEnglishTranslation());
+        ImageView image = (ImageView) listItemView.findViewById(R.id.image);
+        if(currentWord.isImg()) {
 
-        ImageView image = (ImageView) listItemView.findViewById(R.id.image) ;
-        image.setImageResource(currentWord.getImageResourceId());
-
+            image.setImageResource(currentWord.getImageResourceId());
+            image.setVisibility(View.VISIBLE);
+        }
+        else{
+            image.setVisibility(View.GONE);
+        }
         return listItemView;
     }
 
