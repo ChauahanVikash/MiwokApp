@@ -38,16 +38,17 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
         Word currentWord = getItem(position);
 
-
         TextView miwokTextView = (TextView) listItemView.findViewById(R.id.text_view1);
 
         miwokTextView.setText(currentWord.getmMiwokTranslation());
-        miwokTextView.setBackgroundColor(mColorResID);
+        miwokTextView.setBackgroundResource(mColorResID);
 
         TextView engTextView = (TextView) listItemView.findViewById(R.id.text_view2);
 
         engTextView.setText(currentWord.getmEnglishTranslation());
+        engTextView.setBackgroundResource(mColorResID);
         ImageView image = (ImageView) listItemView.findViewById(R.id.image);
+
         if(currentWord.isImg()) {
 
             image.setImageResource(currentWord.getImageResourceId());
