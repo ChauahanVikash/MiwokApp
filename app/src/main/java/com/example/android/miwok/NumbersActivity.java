@@ -33,7 +33,7 @@ public class NumbersActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
 
-    private AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+    private AudioManager audioManager ;
 
 
     private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
@@ -84,6 +84,8 @@ public class NumbersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
 
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
         final ArrayList<Word> wordss = new ArrayList<Word>();
         wordss.add(new Word("one", "lutti" ,R.drawable.number_one, R.raw.number_one));
         wordss.add(new Word("two", "otiiko",R.drawable.number_two,R.raw.number_two));
@@ -111,7 +113,8 @@ public class NumbersActivity extends AppCompatActivity {
                 mMediaPlayer = MediaPlayer.create(NumbersActivity.this ,item.getmSoundResId());
 
 
-                int result = audioManager.requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+                int result = audioManager.requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_MUSIC,
+                        AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
                 if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                     mMediaPlayer.start();

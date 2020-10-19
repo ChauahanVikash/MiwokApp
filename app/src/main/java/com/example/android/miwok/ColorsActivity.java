@@ -29,6 +29,11 @@ import java.util.ArrayList;
 
 public class ColorsActivity extends AppCompatActivity {
 
+    private AudioManager audioManager ;
+
+    private MediaPlayer mMediaPlayer;
+
+
     private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mediaPlayer) {
@@ -52,9 +57,7 @@ public class ColorsActivity extends AppCompatActivity {
         }
     };
 
-    private AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
 
-    private MediaPlayer mMediaPlayer;
 
     private void releaseMediaPlayer() {
         if (mMediaPlayer != null) {
@@ -63,6 +66,8 @@ public class ColorsActivity extends AppCompatActivity {
 
             mMediaPlayer = null;
         }
+        audioManager.abandonAudioFocus(audioFocusChangeListener);
+
     }
     @Override
     protected void onStop() {
@@ -75,6 +80,8 @@ public class ColorsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
+
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         final ArrayList<Word> colors = new ArrayList<Word>();
 
@@ -97,7 +104,8 @@ public class ColorsActivity extends AppCompatActivity {
                 Word item = colors.get(position);
                 releaseMediaPlayer();
                 mMediaPlayer = MediaPlayer.create(ColorsActivity.this ,item.getmSoundResId());
-                int result = audioManager.requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+                int result = audioManager.requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_MUSIC,
+                        AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
                 if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                     mMediaPlayer.start();

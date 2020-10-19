@@ -37,7 +37,7 @@ public class PhrasesActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
 
-    private AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+    private AudioManager audioManager ;
 
     private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
@@ -62,6 +62,7 @@ public class PhrasesActivity extends AppCompatActivity {
 
             mMediaPlayer = null;
         }
+        audioManager.abandonAudioFocus(audioFocusChangeListener);
     }
 
     @Override
@@ -74,7 +75,9 @@ public class PhrasesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.word_list);
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         final ArrayList<Word> phrases = new ArrayList<Word>();
 
         phrases.add(new Word("Where are you going?", "minto wuksus", R.raw.phrase_where_are_you_going));

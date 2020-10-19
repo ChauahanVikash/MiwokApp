@@ -32,7 +32,7 @@ public class FamilyActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
 
-    private AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+    private AudioManager audioManager;
 
 
     private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
@@ -65,6 +65,8 @@ public class FamilyActivity extends AppCompatActivity {
 
             mMediaPlayer = null;
         }
+        audioManager.abandonAudioFocus(audioFocusChangeListener);
+
     }
 
     @Override
@@ -79,6 +81,8 @@ public class FamilyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
+
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         final ArrayList<Word> family = new ArrayList<Word>();
 
@@ -104,8 +108,9 @@ public class FamilyActivity extends AppCompatActivity {
                 Word item = family.get(position);
                 releaseMediaPlayer();
                 mMediaPlayer = MediaPlayer.create(FamilyActivity.this ,item.getmSoundResId());
-                mMediaPlayer.start();
-                int result = audioManager.requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+
+                int result = audioManager.requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_MUSIC,
+                        AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
                 if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                     mMediaPlayer.start();
